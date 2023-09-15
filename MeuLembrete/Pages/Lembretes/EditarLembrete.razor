@@ -1,0 +1,24 @@
+﻿@page "/lembrete/editar/{Id:int}"
+@using MeuLembrete.Data;
+
+@inject ILembreteService LembreteService
+
+<h1>Novo Lembrete</h1>
+
+<LembreteForm Lembrete="lembrete"></LembreteForm>
+
+
+@code {
+    
+    Lembrete lembrete;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async void OnInitialized()
+    {
+        var lembretes = await LembreteService.GetLembretes();
+        this.lembrete = lembretes.First(x => x.Id == Id);
+
+    }
+}

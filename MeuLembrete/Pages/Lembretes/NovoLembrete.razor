@@ -1,0 +1,22 @@
+﻿@page "/lembrete/novo"
+@using MeuLembrete.Data;
+
+<h1>Novo Lembrete</h1>
+
+<LembreteForm Lembrete="lembrete"></LembreteForm>
+
+
+@code {
+    private int currentCount = 0;
+    Lembrete lembrete = new Lembrete();
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    protected override void OnInitialized()
+    {
+        
+    }
+}
