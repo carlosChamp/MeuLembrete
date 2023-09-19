@@ -1,10 +1,14 @@
 ﻿@page "/lembrete/novo"
-@using MeuLembrete.Data;
+@using MeuLembrete.Services;
+@using MeuLembrete.Model;
+
+@inject ILembreteService LembreteService;
 
 <h1>Novo Lembrete</h1>
 
 <LembreteForm Lembrete="lembrete"></LembreteForm>
 
+<BtnSalvarCancelar onSalvar="salvar" onCancelar="cancelar"></BtnSalvarCancelar>
 
 @code {
     private int currentCount = 0;
@@ -17,6 +21,16 @@
 
     protected override void OnInitialized()
     {
-        
+
+    }
+
+    protected void salvar()
+    {
+        LembreteService.AddLembrete(lembrete);
+    }
+
+    protected void cancelar()
+    {
+
     }
 }

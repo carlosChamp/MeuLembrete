@@ -1,0 +1,14 @@
+﻿<div class="row gap-1">
+    <button class="btn btn-primary col-3" @onclick="onSalvar">Salvar</button>
+    <button class="btn btn-light col-3" @onclick="onCancelar">Cancelar</button>
+</div>
+
+@code {
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> onSalvar { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> onCancelar { get; set; }
+
+}

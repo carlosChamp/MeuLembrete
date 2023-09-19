@@ -1,4 +1,4 @@
-﻿namespace MeuLembrete.Data
+﻿namespace MeuLembrete.Model
 {
     public enum DiaDaSemana
     {

@@ -1,4 +1,8 @@
 ﻿@inherits LayoutComponentBase
+@using MeuLembrete.Services;
+
+@inject ILembreteWorker lembreteWorker;
+@inject LembreteCachedRepository lembreteCachedRepository;
 
 <div class="page">
 	<div class="sidebar">
@@ -15,3 +19,14 @@
 		</article>
 	</main>
 </div>
+
+@code{
+
+	protected override void OnInitialized()
+	{
+		lembreteCachedRepository.UpdateCache();
+		lembreteWorker.Setup();
+		lembreteWorker.Start();
+	}
+
+}

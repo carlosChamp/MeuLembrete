@@ -1,0 +1,10 @@
+﻿.alerta{
+    padding: .5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: .25rem;
+    margin-bottom: 5px;
+}
+
+.alerta > summary{
+    padding: 0 .5rem
+}

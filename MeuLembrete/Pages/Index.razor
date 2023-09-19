@@ -1,6 +1,7 @@
 ﻿@page "/"
 
-@using MeuLembrete.Data;
+@using MeuLembrete.Services;
+@using MeuLembrete.Model;
 
 @inject ILembreteService LembreteService;
 <h1>Meu Lembrete</h1>
@@ -26,7 +27,7 @@ Veja um resumo dos seus lembretes abaixo.
                 </div>
             </div>
             <p class="mb-1">@lembrete.Detalhe</p>
-            <small>12/06 - 09:30.</small>
+            <small>Próximo acionamento: </small>
         </div>
     }
 </div>

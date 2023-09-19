@@ -1,6 +1,6 @@
-@using MeuLembrete.Data;
-<details class="container">
-    <summary class="col-12">Alerta 1</summary>
+@using MeuLembrete.Model;
+<details class="container bg-light alerta">
+    <summary class="col-12">Alerta</summary>
     <div class="row">
         <div class=" col-3">
             <label for="tipoRepeticao" class="form-label">Intervalo que quer ser notificado</label>
@@ -39,7 +39,7 @@
         <div class="col-3" hidden="@(!exibeDiaSemana)">
             <!-- Exibe para Anual-->
             <label for="diaDaSemana" class="form-label">Dia da Semana</label>
-            <select class="form-select" id="diaDaSemana" @bind="Alerta.DiaDaSemana">
+            <select class="form-select" id="diaDaSemana" @bind="Alerta.DiaDaSemana" multiple>
                 @foreach (DiaDaSemana diaDaSemana in Enum.GetValues(typeof(DiaDaSemana)))
                 {
                     <option value="@diaDaSemana">@diaDaSemana</option>
@@ -51,45 +51,5 @@
             <label for="horaAlerta" class="form-label">Hora</label>
             <input type="time" class="form-control" id="horaAlerta" placeholder="Titulo" @bind="Alerta.Horario">
         </div>
-        @IntervaloSelecionado
     </div>
 </details>
-@code {
-
-
-    private TipoIntervalo IntervaloSelecionado
-    {
-        get
-        {
-            return Alerta.IntervaloRepeticao;
-        }
-        set
-        {
-            Alerta.IntervaloRepeticao = value;
-            ocultarCamposIntervalo();
-        }
-    }
-
-    private bool exibeDataCompleta = true;
-    private bool exibeDia = false;
-    private bool exibeMes = false;
-    private bool exibeDiaSemana = false;
-    private bool exibeIntervaloMeses = false;
-
-    private void ocultarCamposIntervalo()
-    {
-        exibeDataCompleta = IntervaloSelecionado == TipoIntervalo.NaoRepetir;
-        exibeDia = IntervaloSelecionado == TipoIntervalo.Mensal || IntervaloSelecionado == TipoIntervalo.Meses || IntervaloSelecionado == TipoIntervalo.Anual;
-        exibeMes = IntervaloSelecionado == TipoIntervalo.Anual;
-        exibeIntervaloMeses = IntervaloSelecionado == TipoIntervalo.Meses;
-        exibeDiaSemana = IntervaloSelecionado == TipoIntervalo.Semanal;
-    }
-
-    [Parameter]
-    public Alerta Alerta { get; set; }
-
-    protected override void OnParametersSet()
-    {
-        ocultarCamposIntervalo();
-    }
-}

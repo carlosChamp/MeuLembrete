@@ -1,4 +1,8 @@
-﻿@using MeuLembrete.Data;
+﻿@using MeuLembrete.Model;
+@using Microsoft.Toolkit.Uwp.Notifications;
+@using MeuLembrete.Services;
+
+@inject INotificationService NotificationService;
 
 <div class="mb-3">
     <label for="tituloLembrete" class="form-label">Titulo</label>
@@ -17,13 +21,8 @@
 {
     <ConfiguracaoAlerta @key="alerta" Alerta="alerta"></ConfiguracaoAlerta>
 }
-<div class="row">
-
-    <button class="btn btn-primary">Salvar</button><button class="btn btn-light">Cancelar</button>
-</div>
 
 @code {
-
 
     [Parameter]
     public Lembrete Lembrete { get; set; }
@@ -34,6 +33,12 @@
             {
                 DataInicio = DateTime.Now
             });
-           
+
     }
+
+    private void removerAlerta(int id)
+    {
+
+    }
+
 }

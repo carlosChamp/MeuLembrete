@@ -1,8 +1,9 @@
-﻿namespace MeuLembrete.Data
+﻿namespace MeuLembrete.Model
 {
     public class Lembrete
     {
         public int Id { get; set; }
+
         public string Titulo { get; set; }
 
         public string Detalhe { get; set; }

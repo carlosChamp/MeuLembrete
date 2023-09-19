@@ -1,4 +1,4 @@
-namespace MeuLembrete.Data
+namespace MeuLembrete.Services
 {
     public class WeatherForecast
     {

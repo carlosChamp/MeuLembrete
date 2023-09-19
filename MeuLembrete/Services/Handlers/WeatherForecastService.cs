@@ -1,4 +1,4 @@
-namespace MeuLembrete.Data.Handlers
+namespace MeuLembrete.Services.Handlers
 {
     public class WeatherForecastService
     {
