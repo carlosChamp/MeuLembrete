@@ -1,5 +1,5 @@
 using global::Microsoft.AspNetCore.Components;
-using MeuLembrete.Model;
+using MeuLembrete.Core.Model;
 
 namespace MeuLembrete.Shared
 {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MeuLembrete.Model;
+using MeuLembrete.Core.Model;
 
-namespace MeuLembrete.Services
+namespace MeuLembrete.Core.Services
 {
 	public class LembreteCachedRepository
 	{

@@ -1,7 +1,7 @@
-﻿using MeuLembrete.Model;
-using MeuLembrete.Services;
+﻿using MeuLembrete.Core.Model;
+using MeuLembrete.Core.Services;
 
-namespace MeuLembrete.CalculadoraStrategy
+namespace MeuLembrete.Core.CalculadoraStrategy
 {
     internal class AvaliadorFactory
     {

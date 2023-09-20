@@ -1,6 +1,6 @@
-﻿using MeuLembrete.Model;
+﻿using MeuLembrete.Core.Model;
 
-namespace MeuLembrete.Services
+namespace MeuLembrete.Core.Services
 {
     public interface ILembreteService
     {

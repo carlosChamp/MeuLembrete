@@ -1,6 +1,6 @@
-using MeuLembrete.Model;
+using MeuLembrete.Core.Model;
 
-namespace MeuLembrete.Services.Handlers
+namespace MeuLembrete.Core.Services.Handlers
 {
     public class LembreteServiceMock : ILembreteService
     {

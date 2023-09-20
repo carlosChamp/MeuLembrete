@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace MeuLembrete.Services
+namespace MeuLembrete.Core.Services
 {
-    internal interface ILembreteWorker
+    public interface ILembreteWorker
     {
         void Setup();
 

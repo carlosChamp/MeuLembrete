@@ -1,11 +1,11 @@
-﻿using MeuLembrete.Model;
+﻿using MeuLembrete.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeuLembrete.CalculadoraStrategy
+namespace MeuLembrete.Core.CalculadoraStrategy
 {
     internal abstract class TemplateAvaliadorStrategy : IAvaliadorAlerta
     {
@@ -13,11 +13,11 @@ namespace MeuLembrete.CalculadoraStrategy
         {
             return  AvaliarCondicao(dataReferencia, alerta) && 
                 alerta.Horario.Hour == dataReferencia.Hour && 
-                alerta.Horario.Minute == dataReferencia.Minute;
+                alerta.Horario.Minute == dataReferencia.Minute &&
+                dataReferencia >= alerta.DataInicio;
         }
 
         protected abstract bool AvaliarCondicao(DateTime dataReferencia, Alerta item);
 
-        protected abstract TipoIntervalo IntervaloAvaliado { get; }
     }
 }

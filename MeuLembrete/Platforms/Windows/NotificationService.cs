@@ -1,11 +1,6 @@
-﻿using MeuLembrete.Model;
-using MeuLembrete.Services;
+﻿using MeuLembrete.Core.Model;
+using MeuLembrete.Core.Services;
 using Microsoft.Toolkit.Uwp.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeuLembrete.Notification;
 
@@ -15,11 +10,15 @@ public class NotificationService : INotificationService
 
     public void ShowNotification(Lembrete lembrete)
     {
-        new ToastContentBuilder()
-            //.AddToastActivationInfo(null, ToastActivationType.Foreground)
+
+        var snoozeBtn = new ToastButton();
+        
+		new ToastContentBuilder()
             .AddText(lembrete.Titulo, hintStyle: AdaptiveTextStyle.Header)
             .AddText(lembrete.Detalhe, hintStyle: AdaptiveTextStyle.Body)
-            .AddButton(new ToastButtonSnooze())
+            .AddButton(snoozeBtn
+                        .SetContent("Me lembre mais tarde.")
+                        .AddArgument("lembreteId", lembrete.Id))
             .Show();
     }
 }

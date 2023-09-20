@@ -1,4 +1,4 @@
-﻿namespace MeuLembrete.Model
+﻿namespace MeuLembrete.Core.Model
 {
     public enum TipoIntervalo
     {

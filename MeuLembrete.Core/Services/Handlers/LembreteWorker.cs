@@ -1,11 +1,11 @@
-﻿using MeuLembrete.CalculadoraStrategy;
-using MeuLembrete.Model;
+﻿using MeuLembrete.Core.CalculadoraStrategy;
+using MeuLembrete.Core.Model;
 using System.Timers;
 using Timer = System.Timers.Timer;
 
-namespace MeuLembrete.Services.Handlers;
+namespace MeuLembrete.Core.Services.Handlers;
 
-internal class LembreteWorker : ILembreteWorker
+public class LembreteWorker : ILembreteWorker
 {
 
 	static Timer timer;
@@ -14,7 +14,9 @@ internal class LembreteWorker : ILembreteWorker
 
 	private readonly CalculadoraAlertas calculadoraAlertas;
 
-	public LembreteWorker(LembreteCachedRepository lembreteService, INotificationService notificationService, CalculadoraAlertas calculadoraAlertas)
+	public LembreteWorker(LembreteCachedRepository lembreteService, 
+						  INotificationService notificationService, 
+						  CalculadoraAlertas calculadoraAlertas)
 	{
 		this.lembreteCache = lembreteService;
 		this.notificationService = notificationService;
@@ -60,6 +62,7 @@ internal class LembreteWorker : ILembreteWorker
 
 	static double GetInterval()
 	{
+
 		DateTime now = DateTime.Now;
 		return ((60 - now.Second) * 1000 - now.Millisecond);
 	}

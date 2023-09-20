@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuLembrete", "MeuLembrete\MeuLembrete.csproj", "{31D5155D-1E0F-4C92-B9B4-861E7E2734EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeuLembrete.Core", "MeuLembrete.Core\MeuLembrete.Core.csproj", "{2DBBE18D-6003-440C-9055-9CF3FC0882E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{31D5155D-1E0F-4C92-B9B4-861E7E2734EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31D5155D-1E0F-4C92-B9B4-861E7E2734EF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{31D5155D-1E0F-4C92-B9B4-861E7E2734EF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2DBBE18D-6003-440C-9055-9CF3FC0882E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DBBE18D-6003-440C-9055-9CF3FC0882E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DBBE18D-6003-440C-9055-9CF3FC0882E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DBBE18D-6003-440C-9055-9CF3FC0882E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

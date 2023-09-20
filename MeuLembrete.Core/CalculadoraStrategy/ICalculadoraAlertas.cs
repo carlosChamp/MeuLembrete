@@ -1,6 +1,6 @@
-﻿using MeuLembrete.Model;
+﻿using MeuLembrete.Core.Model;
 
-namespace MeuLembrete.CalculadoraStrategy
+namespace MeuLembrete.Core.CalculadoraStrategy
 {
     public class CalculadoraAlertas
     {
@@ -19,7 +19,7 @@ namespace MeuLembrete.CalculadoraStrategy
 
         public IEnumerable<Lembrete> RetornarLembretesNoHorario(IEnumerable<Lembrete> listaLembretes, DateTime dataReferencia)
         {
-            List<Lembrete> lembretesComAlertaDisparados = new List<Lembrete>();
+            List<Lembrete> lembretesComAlertaDisparados = new();
             foreach (var lembrete in listaLembretes)
             {
                 foreach (var alerta in lembrete.Alertas)

@@ -1,16 +1,14 @@
-﻿using MeuLembrete.Model;
+﻿using MeuLembrete.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeuLembrete.CalculadoraStrategy
+namespace MeuLembrete.Core.CalculadoraStrategy
 {
 	internal class AvaliadorMensal : TemplateAvaliadorStrategy
 	{
-		protected override TipoIntervalo IntervaloAvaliado => TipoIntervalo.Mensal;
-
 		protected override bool AvaliarCondicao(DateTime dataReferencia, Alerta item)
 		{
 			return dataReferencia.Day == item.Dia;

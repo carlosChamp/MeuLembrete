@@ -1,5 +1,6 @@
-﻿using MeuLembrete.Services;
-using MeuLembrete.Services.Handlers;
+﻿using MeuLembrete.Core.Services;
+using MeuLembrete.Core.Services.Handlers;
+using MeuLembrete.Core.CalculadoraStrategy;
 
 using Microsoft.AspNetCore.Components.WebView.Maui;
 
@@ -26,10 +27,10 @@ namespace MeuLembrete
 #endif
 
 			builder.Services.AddSingleton<LembreteCachedRepository>();
-            builder.Services.AddSingleton<CalculadoraStrategy.CalculadoraAlertas>();
+			builder.Services.AddSingleton<CalculadoraAlertas>();
 			builder.Services.AddTransient<ILembreteService, LembreteServiceMock>();
             builder.Services.AddTransient<ILembreteWorker, LembreteWorker>();
-            //builder.Services.AddTransient<I>
+            
 
 
             return builder.Build();
