@@ -1,5 +1,7 @@
 ﻿using MeuLembrete.Core.Model;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("MeuLembreteCore.Tests")]
 namespace MeuLembrete.Core.CalculadoraStrategy
 {
     public class CalculadoraAlertas
@@ -7,7 +9,7 @@ namespace MeuLembrete.Core.CalculadoraStrategy
 
         static Dictionary<TipoIntervalo, IAvaliadorAlerta> tiposAlertasDisponiveis = new();
 
-        static IAvaliadorAlerta GetTipoAvaliador(TipoIntervalo tipoIntervalo)
+        private protected static IAvaliadorAlerta GetTipoAvaliador(TipoIntervalo tipoIntervalo)
         {
             if (!tiposAlertasDisponiveis.ContainsKey(tipoIntervalo))
             {

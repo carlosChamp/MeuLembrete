@@ -6,10 +6,8 @@ namespace MeuLembrete.Core.CalculadoraStrategy
     {
         protected override bool AvaliarCondicao(DateTime dataReferencia, Alerta item)
         {
-#if DEBUG
-            return false;
-#endif
-            throw new NotImplementedException();
+            int quantidadeMeses = ((dataReferencia.Year - item.DataInicio.Year) * 12) + (dataReferencia.Month - item.DataInicio.Month);
+            return quantidadeMeses % item.IntervalorMeses == 0 && dataReferencia.Day == item.Dia;
         }
     }
 }

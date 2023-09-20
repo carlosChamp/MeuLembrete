@@ -1,6 +1,8 @@
 ﻿using MeuLembrete.Core.Model;
 using MeuLembrete.Core.Services;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("MeuLembreteCore.Tests")]
 namespace MeuLembrete.Core.CalculadoraStrategy
 {
     internal class AvaliadorFactory
@@ -9,7 +11,7 @@ namespace MeuLembrete.Core.CalculadoraStrategy
         {
             return tipoIntervalo switch
             {
-                TipoIntervalo.NaoRepetir => new AvaliadorDiario(),
+                TipoIntervalo.NaoRepetir => new AvaliadorUnico(),
                 TipoIntervalo.Diario => new AvaliadorDiario(),
                 TipoIntervalo.Semanal => new AvaliadorSemanal(),
                 TipoIntervalo.Mensal => new AvaliadorMensal(),
