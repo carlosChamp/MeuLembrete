@@ -1,0 +1,127 @@
+@using MeuLembrete.Core.Model;
+
+<table class="calendar">
+    <thead>
+        <tr class="bg-primary text-white">
+            @for (int j = 0; j <= 6; j++)
+            {
+                <th>@(diaDaSemanaDesc[j])</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (int week = 0; week <= semanasDoMes; week++)
+        {
+            <tr>
+                @for (int diaDaSemana = 1; diaDaSemana <= 7; diaDaSemana++)
+                {
+                    @if (((week * 7) + diaDaSemana - offsetmes) > 0 && ((week * 7) + diaDaSemana - offsetmes) <= diaFinal.Day)
+                    {
+                        <td>
+                            <div class="cal-dia">@((week * 7) + diaDaSemana - offsetmes)</div>
+                            <div class="clearfix"></div>
+                            <div class="cal-dia-detalhe">
+                                @if (diaDaSemana == 5 || diaDaSemana == 3)
+                                {
+                                    <div class="badge rounded-pill marcador marcador-semanal">Sachê</div>
+                                }
+
+                                @if (((week * 7) + diaDaSemana - offsetmes) == 14)
+                                {
+                                    <div class="badge rounded-pill marcador marcador-mensal">Namorado</div>
+                                    <div class="badge rounded-pill marcador marcador-mensal">Sono</div>
+                                    <div class="badge rounded-pill marcador marcador-meses">Teste</div>
+                                    <div class="badge rounded-pill marcador marcador-unico">mais coisas</div>
+                                    <div class="badge rounded-pill marcador marcador-unico">muitos compromissos</div>
+                                    <div class="badge rounded-pill marcador marcador-unico">AHHHHH</div>
+                                    <div class="badge rounded-pill marcador marcador-unico">TESTADO</div>
+                                }
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-3">
+        <fieldset>
+            <legend>Legenda</legend>
+            <ul class="lista-legenda">
+                <li>
+                    <span class="badge rounded-pill marcador-diario">+99</span> Diário
+                </li>
+
+                <li>
+                    <div class="badge rounded-pill marcador-semanal">+99</div> Semanal
+                </li>
+                <li>
+                    <div class="badge rounded-pill marcador-mensal">+99</div> Mensal
+                </li>
+                <li>
+                    <div class="badge rounded-pill marcador-meses">+99</div> Intervalo de meses
+                </li>
+                <li>
+                    <div class="badge rounded-pill marcador-anual">+99</div> Anual
+                </li>
+                <li>
+                    <div class="badge rounded-pill marcador-unico">+99</div> Sem repetição
+                </li>
+            </ul>
+
+        </fieldset>
+    </div>
+    <div class="col-9">
+    </div>
+</div>
+@code {
+    string[] diaDaSemanaDesc =
+    {
+        "Dom",
+        "Seg",
+        "Ter",
+        "Qua",
+        "Qui",
+        "Sex",
+        "Sab"
+    };
+    private const double NUMERO_DE_DIAS_DA_SEMANA = 7;
+    DateOnly[,] diasDoMes;
+
+    int offsetmes;
+
+    [Parameter]
+    public DateTime MesSelecionado
+    {
+        get;set;
+    }
+    DateTime diaInicial;
+    DateTime diaFinal;
+    int semanasDoMes;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        ConfigurarGridCalendario();
+        StateHasChanged();
+    }
+
+    private void ConfigurarGridCalendario()
+    {
+        offsetmes = (int)MesSelecionado.DayOfWeek;
+        diaInicial = MesSelecionado.Date;
+        diaFinal = MesSelecionado.Date.AddMonths(1).AddDays(-1);
+        semanasDoMes = (int)Math.Ceiling((diaFinal.Day + offsetmes) / NUMERO_DE_DIAS_DA_SEMANA);
+
+    }
+}

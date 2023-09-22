@@ -25,7 +25,7 @@ namespace MeuLembreteCore.Tests
 
             Alerta alertaAnual = new()
             {
-                DataInicio = dataAtual,
+                DataInicio = DateOnly.FromDateTime(dataAtual),
                 IntervaloRepeticao = TipoIntervalo.Anual,
                 Dia = dataAtual.Day,
                 Mes = dataAtual.Month,
@@ -44,7 +44,7 @@ namespace MeuLembreteCore.Tests
 
             Alerta alertaMensal = new()
             {
-                DataInicio = dataAtual,
+                DataInicio = DateOnly.FromDateTime(dataAtual),
                 IntervaloRepeticao = TipoIntervalo.Mensal,
                 Dia = dataAtual.Day,
                 Horario = TimeOnly.FromDateTime(dataAtual),
@@ -62,7 +62,7 @@ namespace MeuLembreteCore.Tests
 
             Alerta alertaSemRepeticao = new()
             {
-                DataInicio = dataAtual,
+                DataInicio = DateOnly.FromDateTime(dataAtual),
                 IntervaloRepeticao = TipoIntervalo.NaoRepetir,
                 Data = DateOnly.FromDateTime(dataAtual),
                 Horario = TimeOnly.FromDateTime(dataAtual),
@@ -80,7 +80,7 @@ namespace MeuLembreteCore.Tests
 
             Alerta alertaSemanal = new()
             {
-                DataInicio = dataAtual,
+                DataInicio = DateOnly.FromDateTime(dataAtual),
                 IntervaloRepeticao = TipoIntervalo.Semanal,
                 DiaDaSemana = new DiaDaSemana[] { (DiaDaSemana)(int)dataAtual.DayOfWeek },
                 Horario = TimeOnly.FromDateTime(dataAtual),
@@ -99,7 +99,7 @@ namespace MeuLembreteCore.Tests
 
             Alerta alertaDiario = new()
             {
-                DataInicio = dataAtual,
+                DataInicio = DateOnly.FromDateTime(dataAtual),
                 IntervaloRepeticao = TipoIntervalo.Diario,
                 Horario = TimeOnly.FromDateTime(dataAtual),
             };
@@ -118,7 +118,7 @@ namespace MeuLembreteCore.Tests
             
             Alerta alertaMeses = new()
             {
-                DataInicio = dataAtual,
+                DataInicio = DateOnly.FromDateTime(dataAtual),
                 IntervaloRepeticao = TipoIntervalo.Meses,
                 IntervalorMeses = 13,
                 Dia = dataAtual.Day,
@@ -136,12 +136,12 @@ namespace MeuLembreteCore.Tests
         [Fact]
         public void IAvaliador_DeveValidarIntervalosMesesQuandoDiaAlertaMenorQueDataInicio()
         {
-            DateTime dataAtual = new DateTime(2023, 9, 20, 15, 0, 0);
-            DateTime dataNotificacao = new DateTime(2023, 9, 15, 15, 0, 0);
+            DateTime dataAtual = new(2023, 9, 20, 15, 0, 0);
+            DateTime dataNotificacao = new(2023, 9, 15, 15, 0, 0);
 
             Alerta alertaMeses = new()
             {
-                DataInicio = dataAtual,
+                DataInicio = DateOnly.FromDateTime(dataAtual),
                 IntervaloRepeticao = TipoIntervalo.Meses,
                 IntervalorMeses = 13,
                 Dia = 15,
@@ -160,8 +160,6 @@ namespace MeuLembreteCore.Tests
 
         public class CalculadoraAlertasTestsPrivates : CalculadoraAlertas
         {
-
-
             [Fact]
             public void CalculadoraAlertas_DeveRetornarAMesmaInstanciaEmVariasChamadas()
             {

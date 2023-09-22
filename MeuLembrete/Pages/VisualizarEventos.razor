@@ -1,0 +1,44 @@
+﻿@page "/VisualizarEventos"
+@page "/VisualizarEventos/{MesSelecionado:datetime}"
+
+@inject NavigationManager NavigationManager;
+<div class="row controles">
+    <div class="col-3">
+        <div class="input-group" role="group" aria-label="Basic example">
+            <input type="month" class="form-control dropdown" @onchange="redirectParaOMesSelecionado" />
+            <button type="button" class="btn btn-outline-primary"><i class="oi oi-chevron-left" /></button>
+            <button type="button" class="btn btn-outline-primary"><i class="oi oi-chevron-right" /></button>
+        </div>
+    </div>
+    <div class="col-8 text-center">
+        <h2>Calendário de Lembretes</h2>
+    </div>
+</div>
+<Calendario MesSelecionado="MesSelecionado.Value"></Calendario>
+
+@code {
+    [Parameter]
+    public DateTime? MesSelecionado
+    {
+        get; set;
+    }
+
+    private void redirectParaOMesSelecionado(ChangeEventArgs args)
+    {
+        DateTime dataSelecionada = DateTime.ParseExact(args.Value.ToString(), "yyyy-MM", System.Globalization.CultureInfo.InvariantCulture);
+        NavigationManager.NavigateTo($"VisualizarEventos/{dataSelecionada.ToString("yyyy-MM-ddTHH:mm:ss", System.Globalization.CultureInfo.InvariantCulture)}");
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        MesSelecionado = MesSelecionado ?? new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+        StateHasChanged();
+    }
+}

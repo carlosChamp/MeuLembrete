@@ -8,8 +8,6 @@
     {
         public TipoIntervalo IntervaloRepeticao { get; set; }
 
-        public DateTime DataInicio { get; set; }
-
         public DateOnly Data { get; set; }
 
         public int Dia { get; set; }
@@ -24,6 +22,8 @@
 
         public DateTime? UltimoAcionamento { get; internal set; }
 
-        public DateTime? ProximoAcionamento { get; internal set; }
+        public DateOnly? DataInicio { get; set; }
+
+        public DateOnly? DataFim { get; set; }
     }
 }

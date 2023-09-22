@@ -8,7 +8,9 @@
 
         public string Detalhe { get; set; }
 
-        public bool FoiNotificado { get; set; }
+        public string Tag { get; set; }
+
+        public bool FoiNotificado { get; set; } 
 
         public Alertas Alertas { get; set; } = new Alertas();
 

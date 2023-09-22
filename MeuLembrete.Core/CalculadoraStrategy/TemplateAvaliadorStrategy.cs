@@ -7,14 +7,24 @@ using System.Threading.Tasks;
 
 namespace MeuLembrete.Core.CalculadoraStrategy
 {
-    internal abstract class TemplateAvaliadorStrategy : IAvaliadorAlerta
+    internal abstract class TemplateAvaliadorPadraoStrategy : IAvaliadorAlerta
     {
         public bool Avaliar(Alerta alerta, DateTime dataReferencia)
         {
-            return  AvaliarCondicao(dataReferencia, alerta) && 
-                alerta.Horario.Hour == dataReferencia.Hour && 
-                alerta.Horario.Minute == dataReferencia.Minute &&
-                dataReferencia >= alerta.DataInicio;
+            return  AvaliarCondicao(dataReferencia, alerta) &&
+                ValidarHorarioAcionamento(dataReferencia, alerta) &&
+                ValidarLimitesDataInicioEFim(dataReferencia, alerta);
+        }
+
+        protected bool ValidarHorarioAcionamento(DateTime dataReferencia, Alerta alerta)
+        {
+            return alerta.Horario.Hour == dataReferencia.Hour && alerta.Horario.Minute == dataReferencia.Minute;
+        }
+
+        protected bool ValidarLimitesDataInicioEFim(DateTime dataReferencia, Alerta alerta)
+        {
+            return DateOnly.FromDateTime(dataReferencia) >= alerta.DataInicio && 
+                   DateOnly.FromDateTime(dataReferencia) <= alerta.DataFim;
         }
 
         protected abstract bool AvaliarCondicao(DateTime dataReferencia, Alerta item);

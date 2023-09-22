@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MeuLembrete.Core.CalculadoraStrategy
 {
-	internal class AvaliadorMensal : TemplateAvaliadorStrategy
+	internal class AvaliadorMensal : TemplateAvaliadorPadraoStrategy
 	{
 		protected override bool AvaliarCondicao(DateTime dataReferencia, Alerta item)
 		{

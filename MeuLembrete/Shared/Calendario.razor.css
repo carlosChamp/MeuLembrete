@@ -1,0 +1,103 @@
+﻿table.calendar {
+    width: 100%;
+    box-sizing: border-box;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 1em;
+    border: 1px solid #ced4da;
+}
+
+.calendar td {
+    border-style: solid;
+    border-width: 1px;
+    padding: 0;
+    vertical-align: top;
+}
+
+.calendar th {
+    vertical-align: top;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.calendar .cal-dia {
+    font-size: 15px;
+    margin: 2px;
+    min-width: 19px;
+    padding: 6px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    float: right;
+    clear: both;
+}
+
+.calendar .cal-dia-detalhe {
+    min-height: 70px;
+    padding: 2px
+}
+
+.calendar td:hover {
+    border-bottom-color: black;
+    border-right-color: black;
+}
+
+    .calendar td:hover .cal-dia {
+        background-color: #B8B8B8;
+        border-radius: 50%;
+        color: #FFFFFF;
+        transition: background-color 0.2s;
+    }
+
+.lista-legenda li {
+}
+
+.lista-legenda {
+    list-style-type: none;
+}
+
+.marcador {
+    overflow-wrap: break-word;
+    margin-left: 3px
+}
+
+.marcador-diario {
+    background-color: gold;
+}
+
+.marcador-semanal {
+    background-color: purple;
+}
+
+
+.marcador-mensal {
+    background-color: crimson;
+}
+
+.marcador-meses {
+    background-color: darkorchid;
+}
+
+.marcador-anual {
+    background-color: dodgerblue;
+}
+
+.marcador-unico {
+    background-color: deeppink;
+}
+
+.badge.block-badge {
+    display: block;
+    max-height: max-content;
+    white-space: normal;
+}
+
+.controles {
+    margin-bottom: .5em;
+
+}
+
+.bg-dark-blue {
+    background-color:rgb(5, 39, 103);
+}
