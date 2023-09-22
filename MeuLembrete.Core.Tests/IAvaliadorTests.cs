@@ -1,23 +1,10 @@
-using MeuLembrete.Core.Services;
-using MeuLembrete.Core.Model;
-using MeuLembrete.Core.CalculadoraStrategy;
 using System.Runtime.CompilerServices;
-using Microsoft.VisualBasic;
 
 [assembly: InternalsVisibleTo("MeuLembrete.Core")]
 namespace MeuLembreteCore.Tests
 {
-    public class IAvaliadorTests
+    public partial class IAvaliadorTests
     {
-        [Fact]
-        public void AvaliadorFactory_DeveInstanciarTodosOsTiposDeIntervalo()
-        {
-            foreach(var tipo in Enum.GetValues(typeof(TipoIntervalo)))
-            {
-                AvaliadorFactory.Create((TipoIntervalo)tipo);
-            } 
-        }
-
         [Fact]
         public void IAvaliador_DeveValidarIntervalosAnuais()
         {
@@ -59,7 +46,7 @@ namespace MeuLembreteCore.Tests
         public void IAvaliador_DeveValidarSemRepeticao()
         {
             DateTime dataAtual = DateTime.Now;
-
+            
             Alerta alertaSemRepeticao = new()
             {
                 DataInicio = DateOnly.FromDateTime(dataAtual),
@@ -154,22 +141,6 @@ namespace MeuLembreteCore.Tests
             Assert.True(avaliador.Avaliar(alertaMeses, dataNotificacao.AddMonths(13)));
             Assert.False(avaliador.Avaliar(alertaMeses, dataNotificacao.AddMonths(24)));
             Assert.True(avaliador.Avaliar(alertaMeses, dataNotificacao.AddMonths(26)));
-        }
-
-
-
-        public class CalculadoraAlertasTestsPrivates : CalculadoraAlertas
-        {
-            [Fact]
-            public void CalculadoraAlertas_DeveRetornarAMesmaInstanciaEmVariasChamadas()
-            {
-                IAvaliadorAlerta avaliador1 = GetTipoAvaliador(TipoIntervalo.Diario);
-
-                IAvaliadorAlerta avaliador2 = GetTipoAvaliador(TipoIntervalo.Diario);
-
-                Assert.StrictEqual(avaliador2, avaliador1);
-
-            }
         }
     }
 }

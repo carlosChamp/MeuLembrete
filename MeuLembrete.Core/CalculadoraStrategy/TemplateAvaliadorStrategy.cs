@@ -23,8 +23,10 @@ namespace MeuLembrete.Core.CalculadoraStrategy
 
         protected bool ValidarLimitesDataInicioEFim(DateTime dataReferencia, Alerta alerta)
         {
+            DateOnly dataFinal = alerta.DataFim ?? DateOnly.MaxValue;
+
             return DateOnly.FromDateTime(dataReferencia) >= alerta.DataInicio && 
-                   DateOnly.FromDateTime(dataReferencia) <= alerta.DataFim;
+                   DateOnly.FromDateTime(dataReferencia) <= dataFinal;
         }
 
         protected abstract bool AvaliarCondicao(DateTime dataReferencia, Alerta item);
