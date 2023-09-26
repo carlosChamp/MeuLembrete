@@ -17,7 +17,7 @@
                 {
                     @if (((week * 7) + diaDaSemana - offsetmes) > 0 && ((week * 7) + diaDaSemana - offsetmes) <= diaFinal.Day)
                     {
-                        <td>
+                        <td @key="listaDeDiasNaTela[((week * 7) + diaDaSemana-1)]">
                             <div class="cal-dia">@((week * 7) + diaDaSemana - offsetmes)</div>
                             <div class="clearfix"></div>
                             <div class="cal-dia-detalhe">
@@ -91,7 +91,7 @@
         "Sab"
     };
     private const double NUMERO_DE_DIAS_DA_SEMANA = 7;
-    DateOnly[,] diasDoMes;
+    List<DateTime> listaDeDiasNaTela;
 
     int offsetmes;
 
@@ -122,6 +122,10 @@
         diaInicial = MesSelecionado.Date;
         diaFinal = MesSelecionado.Date.AddMonths(1).AddDays(-1);
         semanasDoMes = (int)Math.Ceiling((diaFinal.Day + offsetmes) / NUMERO_DE_DIAS_DA_SEMANA);
-
+        listaDeDiasNaTela = new List<DateTime>();
+        for(DateTime diaInicialNaTela = diaInicial.AddDays(-offsetmes); diaInicialNaTela <= diaFinal; diaInicialNaTela = diaInicialNaTela.AddDays(1))
+        {
+            listaDeDiasNaTela.Add(diaInicialNaTela);
+        }
     }
 }

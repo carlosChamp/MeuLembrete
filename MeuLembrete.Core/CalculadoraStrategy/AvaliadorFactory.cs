@@ -1,5 +1,4 @@
 ﻿using MeuLembrete.Core.Model;
-using MeuLembrete.Core.Services;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("MeuLembreteCore.Tests")]

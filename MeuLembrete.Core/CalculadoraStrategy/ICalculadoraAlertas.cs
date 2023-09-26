@@ -19,14 +19,14 @@ namespace MeuLembrete.Core.CalculadoraStrategy
             return tiposAlertasDisponiveis[tipoIntervalo];
         }
 
-        public IEnumerable<Lembrete> RetornarLembretesNoHorario(IEnumerable<Lembrete> listaLembretes, DateTime dataReferencia)
+        public IEnumerable<Lembrete> RetornarLembretesNoHorario(IEnumerable<Lembrete> listaLembretes, DateTime dataReferencia, bool validarHorarioAlerta = true)
         {
             List<Lembrete> lembretesComAlertaDisparados = new();
             foreach (var lembrete in listaLembretes)
             {
                 foreach (var alerta in lembrete.Alertas)
                 {
-                    if (GetTipoAvaliador(alerta.IntervaloRepeticao).Avaliar(alerta, dataReferencia))
+                    if (GetTipoAvaliador(alerta.IntervaloRepeticao).Avaliar(alerta, dataReferencia, validarHorarioAlerta))
                         lembretesComAlertaDisparados.Add(lembrete);
                 }
             }

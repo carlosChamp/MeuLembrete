@@ -24,6 +24,6 @@
 
         public DateOnly? DataInicio { get; set; }
 
-        public DateOnly? DataFim { get; set; }
+        public DateOnly? DataFim { get; set; } = DateOnly.MaxValue;
     }
 }

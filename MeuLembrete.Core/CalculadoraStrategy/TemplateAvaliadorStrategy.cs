@@ -1,19 +1,14 @@
 ﻿using MeuLembrete.Core.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeuLembrete.Core.CalculadoraStrategy
 {
     internal abstract class TemplateAvaliadorPadraoStrategy : IAvaliadorAlerta
     {
-        public bool Avaliar(Alerta alerta, DateTime dataReferencia)
+        public bool Avaliar(Alerta alerta, DateTime dataReferencia, bool validarHorarioAcionamento)
         {
-            return  AvaliarCondicao(dataReferencia, alerta) &&
-                ValidarHorarioAcionamento(dataReferencia, alerta) &&
-                ValidarLimitesDataInicioEFim(dataReferencia, alerta);
+            return AvaliarCondicao(dataReferencia, alerta) &&
+                ValidarLimitesDataInicioEFim(dataReferencia, alerta) &&
+                (!validarHorarioAcionamento || ValidarHorarioAcionamento(dataReferencia, alerta));
         }
 
         protected bool ValidarHorarioAcionamento(DateTime dataReferencia, Alerta alerta)
