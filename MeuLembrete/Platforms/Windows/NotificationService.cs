@@ -18,7 +18,7 @@ public class NotificationService : INotificationService
             .AddText(lembrete.Detalhe, hintStyle: AdaptiveTextStyle.Body)
             .AddButton(snoozeBtn
                         .SetContent("Me lembre mais tarde.")
-                        .AddArgument("lembreteId", lembrete.Id))
+                        .AddArgument("lembreteId", lembrete.Id.ToString()))
             .Show();
     }
 }

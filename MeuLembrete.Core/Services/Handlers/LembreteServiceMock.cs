@@ -9,7 +9,7 @@ namespace MeuLembrete.Core.Services.Handlers
                 {
                     new Lembrete()
                     {
-                        Id = 1,
+                        Id = Guid.NewGuid(),
                         Titulo = "Aniversário de Namoro",
                         Detalhe = "Melhor namorada do mundo.",
                         FoiNotificado = false,
@@ -46,7 +46,7 @@ namespace MeuLembrete.Core.Services.Handlers
                         }
                     },
                     new Lembrete() {
-                        Id = 2,
+                        Id = Guid.NewGuid(),
                         Titulo = "Dizer pra namorada que ela é maravilhosa",
                         Detalhe = "Melhor namorada do mundo.",
                         FoiNotificado = false,
@@ -82,7 +82,7 @@ namespace MeuLembrete.Core.Services.Handlers
 
         public Task<Lembrete> GetLembreteById(int id)
         {
-            return Task.FromResult(lembreteList.First(l => l.Id == id));
+            return Task.FromResult(lembreteList.First(l => l.Id == Guid.NewGuid()));
         }
 
         public Task<List<Lembrete>> GetLembretes()
@@ -92,7 +92,7 @@ namespace MeuLembrete.Core.Services.Handlers
 
         public Task AddLembrete(Lembrete lembrete)
         {
-            int novoId = lembreteList.Max(l => l.Id) + 1;
+            Guid novoId = Guid.NewGuid();
 
             lembrete.Id = novoId;
             lembreteList.Add(lembrete);

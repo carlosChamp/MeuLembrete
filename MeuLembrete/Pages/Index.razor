@@ -3,7 +3,7 @@
 @using MeuLembrete.Core.Services;
 @using MeuLembrete.Core.Model;
 
-@inject ILembreteService LembreteService;
+@inject LembreteCachedRepository LembreteCachedRepository;
 <h1>Meu Lembrete</h1>
 
 Veja um resumo dos seus lembretes abaixo.
@@ -37,7 +37,7 @@ Veja um resumo dos seus lembretes abaixo.
 
     protected override async Task OnInitializedAsync()
     {
-        lembretes = await LembreteService.GetLembretes();
+        lembretes = LembreteCachedRepository.LembretesCache.ToList();
     }
 
 }

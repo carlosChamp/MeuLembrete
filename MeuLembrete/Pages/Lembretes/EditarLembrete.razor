@@ -1,7 +1,8 @@
-﻿@page "/lembrete/editar/{Id:int}"
+﻿@page "/lembrete/editar/{Id:guid}"
 @using MeuLembrete.Core.Services;
 @using MeuLembrete.Core.Model;
 
+@inject LembreteCachedRepository LembreteCached;
 @inject ILembreteService LembreteService;
 
 <h1>Editar Lembrete</h1>
@@ -15,11 +16,11 @@
     Lembrete lembrete;
 
     [Parameter]
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     protected override async void OnInitialized()
     {
-        var lembretes = await LembreteService.GetLembretes();
+        var lembretes = LembreteCached.LembretesCache;
         this.lembrete = lembretes.First(x => x.Id == Id);
     }
 
