@@ -92,9 +92,12 @@ namespace MeuLembrete.Core.Services.Handlers
 
         public Task AddLembrete(Lembrete lembrete)
         {
-            Guid novoId = Guid.NewGuid();
-
-            lembrete.Id = novoId;
+            if (lembrete.Id == Guid.Empty)
+            {
+                Guid novoId = Guid.NewGuid();
+                lembrete.Id = novoId;
+            }
+            
             lembreteList.Add(lembrete);
 
             return Task.CompletedTask;
