@@ -1,5 +1,7 @@
 @using MeuLembrete.Core.Model;
-<details class="container bg-light alerta">
+@using MeuLembrete.Core.Util;
+
+<details class="container bg-light alerta row">
     <summary class="col-12">Alerta</summary>
     <div class="row">
         <div class=" col-3">
@@ -7,7 +9,7 @@
             <select class="form-select" id="tipoRepeticao" @bind="IntervaloSelecionado">
                 @foreach (TipoIntervalo tipoIntervalo in Enum.GetValues(typeof(TipoIntervalo)))
                 {
-                    <option value="@tipoIntervalo">@tipoIntervalo</option>
+                    <option value="@tipoIntervalo">@tipoIntervalo.ToDescription()</option>
                 }
             </select>
         </div>
@@ -53,3 +55,8 @@
         </div>
     </div>
 </details>
+
+                @code{
+
+
+                }

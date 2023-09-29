@@ -28,10 +28,10 @@ namespace MeuLembrete
 
 			builder.Services.AddSingleton<LembreteCachedRepository>();
 			builder.Services.AddSingleton<CalculadoraAlertas>();
-			builder.Services.AddTransient<ILembreteService, LembreteServiceMock>();
-            builder.Services.AddTransient<ILembreteWorker, LembreteWorker>();
+            builder.Services.AddSingleton<LembreteWorker>();
+            builder.Services.AddTransient<ILembreteService, LembreteServiceMock>();
             
-
+            //LembreteWorker lembreteWorker = new LembreteWorker(builder.Services.)
 
             return builder.Build();
         }

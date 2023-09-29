@@ -50,14 +50,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Shared\ConfiguracaoAlerta.razor.css" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="Shared\ConfiguracaoAlerta.razor.css" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
     </ItemGroup>
 

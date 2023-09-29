@@ -18,9 +18,9 @@ namespace MeuLembrete.Core.Services
 		}
 
 		private static IEnumerable<Lembrete> lembretesCache = new List<Lembrete>();
-		public IEnumerable<Lembrete> LembretesCache 
-		{ 
-			get 
+        public IEnumerable<Lembrete> LembretesCache
+        {
+            get 
 			{
 				return lembretesCache;
 			}

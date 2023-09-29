@@ -1,4 +1,6 @@
-﻿namespace MeuLembrete.Core.Model
+﻿using MeuLembrete.Core.Util;
+
+namespace MeuLembrete.Core.Model
 {
     public class Alertas : List<Alerta>
     {
@@ -25,5 +27,16 @@
         public DateOnly? DataInicio { get; set; }
 
         public DateOnly? DataFim { get; set; } = DateOnly.MaxValue;
+
+        public override string ToString()
+        {
+            string alertaDescricao = string.Empty;
+            alertaDescricao += IntervaloRepeticao.ToDescription();
+
+            
+
+            return alertaDescricao;
+
+        }
     }
 }

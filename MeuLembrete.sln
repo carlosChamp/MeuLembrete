@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuLembrete", "MeuLembrete\MeuLembrete.csproj", "{31D5155D-1E0F-4C92-B9B4-861E7E2734EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeuLembrete.Core", "MeuLembrete.Core\MeuLembrete.Core.csproj", "{2DBBE18D-6003-440C-9055-9CF3FC0882E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuLembrete.Core", "MeuLembrete.Core\MeuLembrete.Core.csproj", "{2DBBE18D-6003-440C-9055-9CF3FC0882E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeuLembreteCore.Tests", "MeuLembrete.Core.Tests\MeuLembreteCore.Tests.csproj", "{1FD72653-9278-4E02-9C7A-AEC355B68F4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuLembreteCore.Tests", "MeuLembrete.Core.Tests\MeuLembreteCore.Tests.csproj", "{1FD72653-9278-4E02-9C7A-AEC355B68F4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

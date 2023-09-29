@@ -2,35 +2,14 @@
 
 @using MeuLembrete.Core.Services;
 @using MeuLembrete.Core.Model;
+@using MeuLembrete.Shared.LembreteComponents;
 
 @inject LembreteCachedRepository LembreteCachedRepository;
 <h1>Meu Lembrete</h1>
 
 Veja um resumo dos seus lembretes abaixo.
 
-@* <SurveyPrompt Title="Teste?" /> *@
-<div class="list-group">
-    @foreach (Lembrete lembrete in lembretes)
-    {
-        <div class="list-group-item">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">@lembrete.Titulo</h5>
-                <div class="btn-group">
-                    <a class="btn btn-light" href="/lembrete/editar/@lembrete.Id">
-                        <span class="oi oi-pencil me-2" aria-hidden="true"></span>
-                        Alterar
-                    </a>
-                    <a class="btn btn-light" href="/delete/@lembrete.Id">
-                        <span class="oi oi-trash me-2" aria-hidden="true"></span>
-                        Excluir
-                    </a>
-                </div>
-            </div>
-            <p class="mb-1">@lembrete.Detalhe</p>
-            <small>Próximo acionamento: </small>
-        </div>
-    }
-</div>
+<LembreteList Lembretes ="lembretes"></LembreteList>
 
 @code{
     List<Lembrete> lembretes = new List<Lembrete>();

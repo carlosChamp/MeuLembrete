@@ -1,11 +1,18 @@
 @using MeuLembrete.Core.Model;
+@using MeuLembrete.Core.CalculadoraStrategy;
+@using MeuLembrete.Core.Services;
+@using MeuLembrete.Core.Util;
+@using MeuLembrete.Shared.LembreteComponents;
+
+@inject CalculadoraAlertas CalculadoraAlertas;
+@inject LembreteCachedRepository LembreteCached;
 
 <table class="calendar">
     <thead>
         <tr class="bg-primary text-white">
             @for (int j = 0; j <= 6; j++)
             {
-                <th>@(diaDaSemanaDesc[j])</th>
+                <th>@(((DiaDaSemana)j).ToDescription())</th>
             }
         </tr>
     </thead>
@@ -13,29 +20,26 @@
         @for (int week = 0; week <= semanasDoMes; week++)
         {
             <tr>
-                @for (int diaDaSemana = 1; diaDaSemana <= 7; diaDaSemana++)
+                @for (int diaDaSemana = 0; diaDaSemana <= 6; diaDaSemana++)
                 {
-                    @if (((week * 7) + diaDaSemana - offsetmes) > 0 && ((week * 7) + diaDaSemana - offsetmes) <= diaFinal.Day)
+                    var posicaoDiaNaLista = calcularDiaPelaPosicaoCalendario(week, diaDaSemana);
+                    if (posicaoDiaNaLista < listaDeDiasNaTela.Count)
                     {
-                        <td @key="listaDeDiasNaTela[((week * 7) + diaDaSemana-1)]">
-                            <div class="cal-dia">@((week * 7) + diaDaSemana - offsetmes)</div>
+                        <td @key="listaDeDiasNaTela[posicaoDiaNaLista]"
+                            class="@getTdClassForMonth(listaDeDiasNaTela[posicaoDiaNaLista].Item1)"
+                            data-dataSelecionada="@posicaoDiaNaLista"
+                        @onclick="() => selecionaDia(posicaoDiaNaLista)">
+                            <div class="cal-dia">@listaDeDiasNaTela[posicaoDiaNaLista].Item1.Day</div>
                             <div class="clearfix"></div>
                             <div class="cal-dia-detalhe">
-                                @if (diaDaSemana == 5 || diaDaSemana == 3)
+
+                                @foreach (Lembrete lembrete in listaDeDiasNaTela[posicaoDiaNaLista].Item2)
                                 {
-                                    <div class="badge rounded-pill marcador marcador-semanal">Sachê</div>
+                                    <div class="badge rounded-pill marcador" style="background-color: @lembrete.Cor">
+                                        @lembrete.Tag
+                                    </div>
                                 }
 
-                                @if (((week * 7) + diaDaSemana - offsetmes) == 14)
-                                {
-                                    <div class="badge rounded-pill marcador marcador-mensal">Namorado</div>
-                                    <div class="badge rounded-pill marcador marcador-mensal">Sono</div>
-                                    <div class="badge rounded-pill marcador marcador-meses">Teste</div>
-                                    <div class="badge rounded-pill marcador marcador-unico">mais coisas</div>
-                                    <div class="badge rounded-pill marcador marcador-unico">muitos compromissos</div>
-                                    <div class="badge rounded-pill marcador marcador-unico">AHHHHH</div>
-                                    <div class="badge rounded-pill marcador marcador-unico">TESTADO</div>
-                                }
                             </div>
                         </td>
                     }
@@ -49,60 +53,64 @@
     </tbody>
 </table>
 <div class="row">
-    <div class="col-3">
-        <fieldset>
-            <legend>Legenda</legend>
-            <ul class="lista-legenda">
-                <li>
-                    <span class="badge rounded-pill marcador-diario">+99</span> Diário
-                </li>
+    <div class="col-12">
 
-                <li>
-                    <div class="badge rounded-pill marcador-semanal">+99</div> Semanal
-                </li>
-                <li>
-                    <div class="badge rounded-pill marcador-mensal">+99</div> Mensal
-                </li>
-                <li>
-                    <div class="badge rounded-pill marcador-meses">+99</div> Intervalo de meses
-                </li>
-                <li>
-                    <div class="badge rounded-pill marcador-anual">+99</div> Anual
-                </li>
-                <li>
-                    <div class="badge rounded-pill marcador-unico">+99</div> Sem repetição
-                </li>
-            </ul>
+        <fieldset>
+            <legend>Lembretes na data</legend>
+            <LembreteList Lembretes="listaLembreteNoDia"></LembreteList>
 
         </fieldset>
     </div>
-    <div class="col-9">
-    </div>
+
+    <p></p>
 </div>
 @code {
-    string[] diaDaSemanaDesc =
-    {
-        "Dom",
-        "Seg",
-        "Ter",
-        "Qua",
-        "Qui",
-        "Sex",
-        "Sab"
-    };
-    private const double NUMERO_DE_DIAS_DA_SEMANA = 7;
-    List<DateTime> listaDeDiasNaTela;
 
+    private const double NUMERO_DE_DIAS_DA_SEMANA = 7;
+    DateTime diaInicial;
+    DateTime diaFinal;
+    int semanasDoMes;
     int offsetmes;
+    List<(DateTime, IEnumerable<Lembrete>)> listaDeDiasNaTela;
+    IEnumerable<Lembrete> listaLembreteNoDia;
+
+    private string getTdClassForMonth(DateTime data)
+    {
+        string classList = string.Empty; 
+        if(data < DateTime.Today)
+        {
+            classList = "opacity-50 ";
+        }
+        classList += (data.Month != MesSelecionado.Month) ? "faded" : "active";
+        return classList; 
+    }
+
+    private int calcularDiaPelaPosicaoCalendario(int semana, int diaSemana)
+    {
+        return ((semana * (int)NUMERO_DE_DIAS_DA_SEMANA) + diaSemana);
+    }
+
+    private void ConfigurarGridCalendario()
+    {
+        offsetmes = (int)MesSelecionado.DayOfWeek;
+        diaInicial = MesSelecionado.Date;
+        diaFinal = MesSelecionado.Date.AddMonths(1).AddDays(-1);
+        semanasDoMes = (int)Math.Ceiling((diaFinal.Day + offsetmes) / NUMERO_DE_DIAS_DA_SEMANA);
+        listaDeDiasNaTela = new List<(DateTime, IEnumerable<Lembrete>)>();
+        for (DateTime diaInicialNaTela = diaInicial.AddDays(-offsetmes); diaInicialNaTela <= diaFinal; diaInicialNaTela = diaInicialNaTela.AddDays(1))
+        {
+            IEnumerable<Lembrete> lembretesNaData = CalculadoraAlertas.RetornarLembretesNaDataReferencia(LembreteCached.LembretesCache, diaInicialNaTela.Date, false);
+            listaDeDiasNaTela.Add((diaInicialNaTela, lembretesNaData));
+        }
+    }
 
     [Parameter]
     public DateTime MesSelecionado
     {
-        get;set;
+        get; set;
     }
-    DateTime diaInicial;
-    DateTime diaFinal;
-    int semanasDoMes;
+
+    public DateTime DataSelecionada { get; set; }
 
     protected override void OnInitialized()
     {
@@ -116,16 +124,20 @@
         StateHasChanged();
     }
 
-    private void ConfigurarGridCalendario()
+    void selecionaDia(int week, int diaSeamana)
     {
-        offsetmes = (int)MesSelecionado.DayOfWeek;
-        diaInicial = MesSelecionado.Date;
-        diaFinal = MesSelecionado.Date.AddMonths(1).AddDays(-1);
-        semanasDoMes = (int)Math.Ceiling((diaFinal.Day + offsetmes) / NUMERO_DE_DIAS_DA_SEMANA);
-        listaDeDiasNaTela = new List<DateTime>();
-        for(DateTime diaInicialNaTela = diaInicial.AddDays(-offsetmes); diaInicialNaTela <= diaFinal; diaInicialNaTela = diaInicialNaTela.AddDays(1))
-        {
-            listaDeDiasNaTela.Add(diaInicialNaTela);
-        }
+        int diaSelecionado = calcularDiaPelaPosicaoCalendario(week, diaSeamana);
+        if (diaSelecionado > listaDeDiasNaTela.Count)
+            return;
+        listaLembreteNoDia = listaDeDiasNaTela[diaSelecionado].Item2;
     }
+
+    void selecionaDia(int diaSelecionado)
+    {
+        // int diaSelecionado = calcularDiaPelaPosicaoCalendario(week, diaSeamana);
+        if (diaSelecionado > listaDeDiasNaTela.Count)
+            return;
+        listaLembreteNoDia = listaDeDiasNaTela[diaSelecionado].Item2;
+    }
+
 }

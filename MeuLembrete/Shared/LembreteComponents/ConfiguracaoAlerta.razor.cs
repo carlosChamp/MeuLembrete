@@ -1,7 +1,8 @@
-using global::Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using MeuLembrete.Core.Model;
+using MeuLembrete.Shared.LembreteComponents;
 
-namespace MeuLembrete.Shared
+namespace MeuLembrete.Shared.LembreteComponents
 {
     public partial class ConfiguracaoAlerta
     {
@@ -19,11 +20,11 @@ namespace MeuLembrete.Shared
             }
         }
 
-        private bool exibeDataCompleta = true;
-        private bool exibeDia = false;
-        private bool exibeMes = false;
-        private bool exibeDiaSemana = false;
-        private bool exibeIntervaloMeses = false;
+        protected bool exibeDataCompleta = true;
+        protected bool exibeDia = false;
+        protected bool exibeMes = false;
+        protected bool exibeDiaSemana = false;
+        protected bool exibeIntervaloMeses = false;
 
         private void ocultarCamposIntervalo()
         {

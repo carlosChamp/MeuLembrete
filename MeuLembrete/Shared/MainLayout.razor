@@ -1,8 +1,9 @@
 ﻿@inherits LayoutComponentBase
 @using MeuLembrete.Core.Services;
+@using MeuLembrete.Core.Services.Handlers;
 @using Microsoft.AspNetCore.Components.WebView.Maui;
 
-@inject ILembreteWorker lembreteWorker;
+@inject LembreteWorker lembreteWorker;
 @inject LembreteCachedRepository lembreteCachedRepository;
 
 <div class="page">
@@ -27,7 +28,7 @@
 	{
 		lembreteCachedRepository.UpdateCache();
 		lembreteWorker.Setup();
-		lembreteWorker.Start();
+		// lembreteWorker.Start();
 	}
 
 

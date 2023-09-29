@@ -1,0 +1,30 @@
+﻿@using MeuLembrete.Core.Model;
+
+<div class="list-group-item">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">@Lembrete.Titulo <span class="badge rounded-pill marcador" style="background-color: @Lembrete.Cor">@Lembrete.Tag</span></h5>
+        <div class="btn-group">
+            <a class="btn btn-light" href="/lembrete/editar/@Lembrete.Id">
+                <span class="oi oi-pencil me-2" aria-hidden="true"></span>
+                Alterar
+            </a>
+            <a class="btn btn-light" href="/delete/@Lembrete.Id">
+                <span class="oi oi-trash me-2" aria-hidden="true"></span>
+                Excluir
+            </a>
+        </div>
+    </div>
+    <p class="mb-1">@Lembrete.Detalhe</p>
+    <div>
+        <small>Alertas: </small>
+        @foreach (Alerta alerta in Lembrete.Alertas)
+        {
+            <div class="badge rounded-pill marcador"><i class="oi oi-calendar"></i> @alerta.ToString()</div>
+        }
+    </div>
+
+</div>
+@code {
+    [Parameter]
+    public Lembrete Lembrete { get; set; }
+}

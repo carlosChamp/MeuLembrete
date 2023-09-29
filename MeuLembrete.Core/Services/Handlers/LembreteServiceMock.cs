@@ -5,20 +5,21 @@ namespace MeuLembrete.Core.Services.Handlers
     public class LembreteServiceMock : ILembreteService
     {
 
-        List<Lembrete> lembreteList = new List<Lembrete>()
+        static List<Lembrete> lembreteList = new List<Lembrete>()
                 {
                     new Lembrete()
                     {
-                        Id = Guid.NewGuid(),
+                        Id = new Guid("d2cadef8-e354-4e5b-877a-56e03d883810"),
                         Titulo = "Aniversário de Namoro",
                         Detalhe = "Melhor namorada do mundo.",
                         FoiNotificado = false,
+                        Cor="#FFDD00",
                         Tag = "Namoro",
                         Alertas = new Alertas()
                         {
                             new Alerta()
                             {
-                                DataInicio = DateOnly.FromDateTime(DateTime.Now),
+                                DataInicio = DateOnly.FromDateTime(DateTime.Now.AddMonths(-1)),
                                 IntervaloRepeticao = TipoIntervalo.NaoRepetir,
                                 Data = DateOnly.FromDateTime(DateTime.Now.AddDays(0)),
                                 Horario = TimeOnly.FromDateTime(DateTime.Now.AddMinutes(1)),
@@ -27,7 +28,7 @@ namespace MeuLembrete.Core.Services.Handlers
                             },
                             new Alerta()
                             {
-                                DataInicio = DateOnly.FromDateTime(DateTime.Now),
+                                DataInicio = DateOnly.FromDateTime(DateTime.Now.AddMonths(-1)),
                                 IntervaloRepeticao = TipoIntervalo.Semanal,
                                 DiaDaSemana = new DiaDaSemana[]{ DiaDaSemana.Quinta, DiaDaSemana.Sexta },
                                 Horario = new TimeOnly(12, 0),
@@ -36,7 +37,7 @@ namespace MeuLembrete.Core.Services.Handlers
                             },
                             new Alerta()
                             {
-                                DataInicio = DateOnly.FromDateTime(DateTime.Now),
+                                DataInicio = DateOnly.FromDateTime(DateTime.Now.AddMonths(-1)),
                                 IntervaloRepeticao = TipoIntervalo.Mensal,
                                 Dia = 28,
                                 Horario = new TimeOnly(15, 0),
@@ -46,16 +47,17 @@ namespace MeuLembrete.Core.Services.Handlers
                         }
                     },
                     new Lembrete() {
-                        Id = Guid.NewGuid(),
+                        Id =new Guid("2e5dfc98-307e-4448-a2c9-0b6afd0b5679"),
                         Titulo = "Dizer pra namorada que ela é maravilhosa",
                         Detalhe = "Melhor namorada do mundo.",
                         FoiNotificado = false,
                         Tag = "Elogio",
+                        Cor="#00DDFF",
                         Alertas = new Alertas()
                         {
                             new Alerta()
                             {
-                                DataInicio = DateOnly.FromDateTime(DateTime.Now),
+                                DataInicio = DateOnly.FromDateTime(DateTime.Now.AddMonths(-1)),
                                 IntervaloRepeticao = TipoIntervalo.Meses,
                                 Dia = 14,
                                 IntervalorMeses = 2,
@@ -65,7 +67,7 @@ namespace MeuLembrete.Core.Services.Handlers
                             },
                             new Alerta()
                             {
-                                DataInicio = DateOnly.FromDateTime(DateTime.Now),
+                                DataInicio = DateOnly.FromDateTime(DateTime.Now.AddMonths(-1)),
                                 IntervaloRepeticao = TipoIntervalo.Anual,
                                 Dia = 14,
                                 Mes = 2,

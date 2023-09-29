@@ -18,6 +18,55 @@ namespace MeuLembreteCore.Tests
 
     public class CalculadoraAlertasTests
     {
+
+        [Fact]
+        public void CalculadoraAlertas_DeveRetornarApenasUmLembreteParaMaisDeUmAlerta()
+        {
+            DateOnly DataAtual = DateOnly.FromDateTime(DateTime.Now);
+            TimeOnly horaAtual = TimeOnly.FromDateTime(DateTime.Now);
+            ILembreteService lembreteService = new LembreteServiceMock();
+
+            Guid guidLembreteDoDia = Guid.NewGuid();
+
+            lembreteService.AddLembrete(new Lembrete()
+            {
+                Id = guidLembreteDoDia,
+                Titulo = "Teste lembrete do dia",
+                Detalhe = "Lembrete deve ser retornado",
+                Tag = "Teste",
+                Alertas = new Alertas()
+                {
+                    new Alerta()
+                    {
+                        DataInicio = DataAtual,
+                        Data = DataAtual,
+                        Horario = horaAtual,
+                        DataFim = DataAtual.AddDays(2),
+                        IntervaloRepeticao = TipoIntervalo.NaoRepetir,
+
+                    },
+                    new Alerta()
+                    {
+                        DataInicio = DataAtual,
+                        Data = DataAtual,
+                        Horario = horaAtual,
+                        DataFim = DataAtual.AddDays(2),
+                        IntervaloRepeticao = TipoIntervalo.NaoRepetir,
+
+                    }
+                }
+            });
+            
+            LembreteCachedRepository lembreteCachedRepository = new LembreteCachedRepository(lembreteService);
+
+            lembreteCachedRepository.UpdateCache();
+            CalculadoraAlertas calculadoraAlertas = new();
+            IEnumerable<Lembrete> lembretes = calculadoraAlertas.RetornarLembretesNaDataReferencia(lembreteCachedRepository.LembretesCache, DataAtual.ToDateTime(horaAtual));
+
+            Assert.True(lembretes.Count() == 1);
+            Assert.Contains(guidLembreteDoDia, lembretes.Select(l => l.Id));
+        }
+
         [Fact]
         public void CalculadoraAlertas_DeveRetornarLembretesDoDia()
         {
@@ -74,7 +123,7 @@ namespace MeuLembreteCore.Tests
 
             lembreteCachedRepository.UpdateCache();
             CalculadoraAlertas calculadoraAlertas = new();
-            IEnumerable<Lembrete> lembretes = calculadoraAlertas.RetornarLembretesNoHorario(lembreteCachedRepository.LembretesCache, DateTime.Now, false);
+            IEnumerable<Lembrete> lembretes = calculadoraAlertas.RetornarLembretesNaDataReferencia(lembreteCachedRepository.LembretesCache, DateTime.Now, false);
 
 
             Assert.Contains(guidLembreteDoDia, lembretes.Select(l => l.Id));
@@ -134,11 +183,11 @@ namespace MeuLembreteCore.Tests
             });
 
 
-            LembreteCachedRepository lembreteCachedRepository = new LembreteCachedRepository(lembreteService);
+            LembreteCachedRepository lembreteCachedRepository = new(lembreteService);
 
             lembreteCachedRepository.UpdateCache();
             CalculadoraAlertas calculadoraAlertas = new();
-            IEnumerable<Lembrete> lembretes = calculadoraAlertas.RetornarLembretesNoHorario(lembreteCachedRepository.LembretesCache, DataAtual.ToDateTime(horaAtual));
+            IEnumerable<Lembrete> lembretes = calculadoraAlertas.RetornarLembretesNaDataReferencia(lembreteCachedRepository.LembretesCache, DataAtual.ToDateTime(horaAtual));
 
 
             Assert.Contains(guidLembreteDoDia, lembretes.Select(l => l.Id));

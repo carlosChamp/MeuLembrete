@@ -5,7 +5,7 @@ using Timer = System.Timers.Timer;
 
 namespace MeuLembrete.Core.Services.Handlers;
 
-public class LembreteWorker : ILembreteWorker
+public class LembreteWorker :ILembreteWorker
 {
 
 	static Timer timer;
@@ -25,12 +25,15 @@ public class LembreteWorker : ILembreteWorker
 
 	public void Setup()
 	{
+		if (timer != null)
+			return;
+
 		timer = new Timer()
 		{
-			Interval = GetInterval()
+			Interval = GetInterval(),
+			Enabled = false,
 		};
 		timer.Elapsed += TimerElapsed;
-		timer.Elapsed += SetTimerToDefault;
 	}
 
 	public void Start()
@@ -51,7 +54,8 @@ public class LembreteWorker : ILembreteWorker
 
 	public void TimerElapsed(object? sender, ElapsedEventArgs e)
 	{
-		IEnumerable<Lembrete> lembretesNoHorario = calculadoraAlertas.RetornarLembretesNoHorario(lembreteCache.LembretesCache, DateTime.Now);
+		SetTimerToDefault(sender, e);	
+		IEnumerable<Lembrete> lembretesNoHorario = calculadoraAlertas.RetornarLembretesNaDataReferencia(lembreteCache.LembretesCache, DateTime.Now);
 		if (lembretesNoHorario?.Count() == 0)
 			return;
 
@@ -62,7 +66,6 @@ public class LembreteWorker : ILembreteWorker
 
 	static double GetInterval()
 	{
-
 		DateTime now = DateTime.Now;
 		return ((60 - now.Second) * 1000 - now.Millisecond);
 	}

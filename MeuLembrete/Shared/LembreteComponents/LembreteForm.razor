@@ -1,0 +1,55 @@
+﻿@using MeuLembrete.Core.Model;
+@using MeuLembrete.Core.Services;
+
+@inject INotificationService NotificationService;
+
+<div class="mb-3">
+    <label for="tituloLembrete" class="form-label">Titulo</label>
+    <input type="text" class="form-control" id="tituloLembrete" placeholder="Titulo" @bind="Lembrete.Titulo">
+</div>
+<div class="mb-3">
+    <label for="detalheLembrete" class="form-label">Detalhe</label>
+    <textarea class="form-control" id="detalheLembrete" rows="3" @bind="Lembrete.Detalhe"></textarea>
+</div>
+<div class="row">
+    <div class="mb-3 col-2">
+        <label for="detalheLembrete" class="form-label">Tag</label>
+        <input class="form-control" type="text" id="detalheLembrete" rows="3" @bind="Lembrete.Tag"></input>
+    </div>
+    <div class="mb-3 col-1">
+        <label for="detalheLembrete" class="form-label">Cor</label>
+        <input class="form-control rounded-circle" id="detalheLembrete" type="color" @bind="Lembrete.Cor"></input>
+    </div>
+</div>
+<fieldset>
+    <legend>Configurar Lembretes</legend>
+    @foreach (Alerta alerta in Lembrete.Alertas)
+    {
+        <ConfiguracaoAlerta @key="alerta" Alerta="alerta"></ConfiguracaoAlerta>
+    }
+    <button @onclick="adicionarNovoAlerta" class="btn btn-primary mb-3">
+        <span class="oi oi-plus me-2" aria-hidden="true"></span>
+        Adicionar alerta
+    </button>
+</fieldset>
+
+@code {
+
+    [Parameter]
+    public Lembrete Lembrete { get; set; }
+
+    private void adicionarNovoAlerta()
+    {
+        Lembrete.Alertas.Add(new Alerta()
+            {
+                DataInicio = DateOnly.FromDateTime(DateTime.Now)
+            });
+
+    }
+
+    private void removerAlerta(int id)
+    {
+
+    }
+
+}

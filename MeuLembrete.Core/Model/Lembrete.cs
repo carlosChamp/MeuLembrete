@@ -10,6 +10,8 @@
 
         public string Tag { get; set; }
 
+        public string Cor { get; set; }
+
         public bool FoiNotificado { get; set; } 
 
         public Alertas Alertas { get; set; } = new Alertas();

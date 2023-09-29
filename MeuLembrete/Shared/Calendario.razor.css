@@ -66,10 +66,9 @@
     background-color: gold;
 }
 
-.marcador-semanal {
+.marcador{
     background-color: purple;
 }
-
 
 .marcador-mensal {
     background-color: crimson;
@@ -95,9 +94,13 @@
 
 .controles {
     margin-bottom: .5em;
-
 }
 
 .bg-dark-blue {
     background-color:rgb(5, 39, 103);
+}
+
+.faded{
+    border-color: #ddd;
+    background-color: #eee;
 }
