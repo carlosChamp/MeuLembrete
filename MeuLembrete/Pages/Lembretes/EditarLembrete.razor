@@ -1,12 +1,17 @@
 ﻿@page "/lembrete/editar/{Id:guid}"
 @using MeuLembrete.Core.Services;
 @using MeuLembrete.Core.Model;
+@using MeuLembrete.Core.Util;
 @using MeuLembrete.Shared.LembreteComponents;
 
 @inject LembreteCachedRepository LembreteCached;
 @inject ILembreteService LembreteService;
+@inject NavigationManager NavigationManager;
+
 
 <h1>Editar Lembrete</h1>
+
+<ErrosDaTela MensagemErro="@mensagemErro" MensagemValidacao="@mensagemValidacao"></ErrosDaTela>
 
 <LembreteForm Lembrete="lembrete"></LembreteForm>
 
@@ -19,6 +24,9 @@
     [Parameter]
     public Guid Id { get; set; }
 
+    protected bool mensagemErro;
+    protected IEnumerable<string> mensagemValidacao = null;
+
     protected override async void OnInitialized()
     {
         var lembretes = LembreteCached.LembretesCache;
@@ -27,12 +35,25 @@
 
     protected void salvar()
     {
-        LembreteService.UpdateLembrete(lembrete);
+        try
+        {
+            LembreteService.Validate(lembrete);
+            LembreteService.UpdateLembrete(lembrete);
+        }
+        catch(LembreteValidationException exValidation)
+        {
+            mensagemValidacao = new List<string>() { exValidation.Message };
+        }
+        catch(Exception)
+        {
+            mensagemErro = true;
+            throw;
+        }
     }
 
     protected void cancelar()
     {
-        
+        NavigationManager.NavigateTo("/", false);
     }
 
 

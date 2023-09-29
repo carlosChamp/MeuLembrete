@@ -1,0 +1,24 @@
+<div class="alert alert-danger" hidden="@(!mensagemErro)">Encontramos um erro ao gravar os dados, favor verifique os logs da aplicação.</div>
+<div class="alert alert-info" hidden="@(mensagemValidacao == null)">
+    Não foi possível gravar o lembrete. <br />
+    Verifique as críticas abaixo:
+    @if (mensagemValidacao?.Count() > 0)
+    {
+        <ul>
+            @foreach (string mensagem in mensagemValidacao)
+            {
+                <li>@mensagem</li>
+            }
+        </ul>
+    }
+</div>
+
+@code{
+    [Parameter]
+    public bool mensagemErro { get; set; }
+
+    [Parameter]
+    public IEnumerable<string> mensagemValidacao { get; set; } = null;
+
+
+}

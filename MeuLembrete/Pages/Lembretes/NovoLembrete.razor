@@ -1,12 +1,15 @@
 ﻿@page "/lembrete/novo"
 @using MeuLembrete.Core.Services;
 @using MeuLembrete.Core.Model;
+@using MeuLembrete.Core.Util;
 @using MeuLembrete.Shared.LembreteComponents;
 
 @inject ILembreteService LembreteService;
 @inject LembreteCachedRepository LembreteCachedRepository;
 
 <h1>Novo Lembrete</h1>
+
+<ErrosDaTela MensagemErro="@mensagemErro" MensagemValidacao="@mensagemValidacao"></ErrosDaTela>
 
 <LembreteForm Lembrete="lembrete"></LembreteForm>
 
@@ -15,6 +18,8 @@
 @code {
     private int currentCount = 0;
     Lembrete lembrete = new Lembrete();
+    protected bool mensagemErro;
+    protected IEnumerable<string> mensagemValidacao = null;
 
     private void IncrementCount()
     {
@@ -28,8 +33,21 @@
 
     protected void salvar()
     {
-        LembreteService.AddLembrete(lembrete);
-        LembreteCachedRepository.UpdateCache();
+        try
+        {
+            LembreteService.Validate(lembrete);
+            LembreteService.AddLembrete(lembrete);
+            LembreteCachedRepository.UpdateCache();
+        }
+        catch (LembreteValidationException exValidation)
+        {
+            mensagemValidacao = new List<string>() { exValidation.Message };
+        }
+        catch (Exception)
+        {
+            mensagemErro = true;
+            throw;
+        }
 
     }
 

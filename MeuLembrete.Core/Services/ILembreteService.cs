@@ -6,12 +6,14 @@ namespace MeuLembrete.Core.Services
     {
         public Task<List<Lembrete>> GetLembretes();
 
-        public Task<Lembrete> GetLembreteById(int id);
+        public Task<Lembrete> GetLembreteById(Guid id);
 
         public Task AddLembrete(Lembrete lembrete);
 
         public Task UpdateLembrete(Lembrete lembrete);
 
-        
-	}
+        public void Validate(Lembrete lembrete);
+
+
+    }
 }

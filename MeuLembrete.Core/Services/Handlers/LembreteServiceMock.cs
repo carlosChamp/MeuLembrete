@@ -1,4 +1,5 @@
 using MeuLembrete.Core.Model;
+using MeuLembrete.Core.Util;
 
 namespace MeuLembrete.Core.Services.Handlers
 {
@@ -82,9 +83,9 @@ namespace MeuLembrete.Core.Services.Handlers
 
         public LembreteServiceMock() { }
 
-        public Task<Lembrete> GetLembreteById(int id)
+        public Task<Lembrete> GetLembreteById(Guid id)
         {
-            return Task.FromResult(lembreteList.First(l => l.Id == Guid.NewGuid()));
+            return Task.FromResult(lembreteList.First(l => l.Id == id));
         }
 
         public Task<List<Lembrete>> GetLembretes()
@@ -112,6 +113,18 @@ namespace MeuLembrete.Core.Services.Handlers
             lembreteList[posicaoLembrete] = lembrete;
 
             return Task.CompletedTask;
+        }
+
+        public void Validate(Lembrete lembrete)
+        {
+            if (string.IsNullOrWhiteSpace(lembrete.Titulo))
+                throw new LembreteValidationException("Título é obrigatório.");
+
+            if (string.IsNullOrWhiteSpace(lembrete.Tag))
+                throw new LembreteValidationException("Tag é obrigatório.");
+
+            if (lembrete.Alertas?.Count == 0)
+                throw new LembreteValidationException("Adicione pelo menos 1 alerta");
         }
     }
 }
