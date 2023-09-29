@@ -4,7 +4,7 @@
 @inject INotificationService NotificationService;
 
 <div class="mb-3">
-    <label for="tituloLembrete" class="form-label">Titulo</label>
+    <label for="tituloLembrete" class="form-label" >Titulo</label>
     <input type="text" class="form-control" id="tituloLembrete" placeholder="Titulo" @bind="Lembrete.Titulo">
 </div>
 <div class="mb-3">
@@ -13,12 +13,12 @@
 </div>
 <div class="row">
     <div class="mb-3 col-2">
-        <label for="detalheLembrete" class="form-label">Tag</label>
-        <input class="form-control" type="text" id="detalheLembrete" rows="3" @bind="Lembrete.Tag"></input>
+        <label for="tagLembrete" class="form-label">Tag</label>
+        <input class="form-control" type="text" id="tagLembrete" rows="3" @bind="Lembrete.Tag"></input>
     </div>
     <div class="mb-3 col-1">
-        <label for="detalheLembrete" class="form-label">Cor</label>
-        <input class="form-control rounded-circle" id="detalheLembrete" type="color" @bind="Lembrete.Cor"></input>
+        <label for="corLembrete" class="form-label">Cor</label>
+        <input class="form-control form-control-color" id="corLembrete" type="color" @bind="Lembrete.Cor"></input>
     </div>
 </div>
 <fieldset>

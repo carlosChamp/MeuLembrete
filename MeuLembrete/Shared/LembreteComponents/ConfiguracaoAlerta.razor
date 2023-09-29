@@ -18,6 +18,18 @@
             <label for="dataInicial" class="form-label">Data inicial</label>
             <input type="date" class="form-control" id="dataInicial" @bind="Alerta.DataInicio">
         </div>
+        <div class="col-3">
+            <!-- Exibe para "Todos"-->
+            <label for="dataFinal" class="form-label">Data final</label>
+            <input type="date" class="form-control" id="dataFinal" @bind="Alerta.DataFim">
+        </div>
+        <div class="col-3">
+            <!-- Exibe para "Todos"-->
+            <label for="horaAlerta" class="form-label">Hora</label>
+            <input type="time" class="form-control" id="horaAlerta" placeholder="Titulo" @bind="Alerta.Horario">
+        </div>
+    </div>
+    <div class="row">
         <div class="col-3" hidden="@(!exibeDataCompleta)">
             <!-- Exibe para "Não repetir"-->
             <label for="dataAlerta" class="form-label">Data</label>
@@ -30,7 +42,7 @@
         </div>
         <div class="col-3" hidden="@(!exibeIntervaloMeses)">
             <!-- Exibe para Anual-->
-            <label for="intervaloMesesAlerta" class="form-label">Mes</label>
+            <label for="intervaloMesesAlerta" class="form-label">A cada quantos meses</label>
             <input type="number" min="1" max="99" class="form-control" id="intervaloMesesAlerta" placeholder="Mês" @bind="Alerta.IntervalorMeses">
         </div>
         <div class="col-3" hidden="@(!exibeMes)">
@@ -48,15 +60,5 @@
                 }
             </select>
         </div>
-        <div class="col-3">
-            <!-- Exibe para "Todos"-->
-            <label for="horaAlerta" class="form-label">Hora</label>
-            <input type="time" class="form-control" id="horaAlerta" placeholder="Titulo" @bind="Alerta.Horario">
-        </div>
     </div>
 </details>
-
-                @code{
-
-
-                }
