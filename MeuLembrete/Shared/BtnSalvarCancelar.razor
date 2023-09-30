@@ -1,14 +1,21 @@
 ﻿<div class="row gap-1">
-    <button class="btn btn-primary col-3" @onclick="onSalvar">Salvar</button>
-    <button class="btn btn-light col-3" @onclick="onCancelar">Cancelar</button>
+    <div class="col-12">
+        <button class="btn btn-primary col-3" @onclick="onExecutarAcao">@LabelAcao</button>
+        <button class="btn btn-light col-3" @onclick="onCancelar">@LabelCancelar</button>
+    </div>
 </div>
 
 @code {
 
     [Parameter]
-    public EventCallback<MouseEventArgs> onSalvar { get; set; }
+    public EventCallback<MouseEventArgs> onExecutarAcao { get; set; }
 
     [Parameter]
     public EventCallback<MouseEventArgs> onCancelar { get; set; }
 
+    [Parameter]
+    public string LabelAcao { get; set; } = "Salvar";
+
+    [Parameter]
+    public string LabelCancelar { get; set; } = "Cancelar";
 }

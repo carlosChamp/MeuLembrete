@@ -6,6 +6,7 @@
 
 @inject ILembreteService LembreteService;
 @inject LembreteCachedRepository LembreteCachedRepository;
+@inject NavigationManager NavigationManager;
 
 <h1>Novo Lembrete</h1>
 
@@ -13,7 +14,7 @@
 
 <LembreteForm Lembrete="lembrete"></LembreteForm>
 
-<BtnSalvarCancelar onSalvar="salvar" onCancelar="cancelar"></BtnSalvarCancelar>
+<BtnSalvarCancelar onExecutarAcao="salvar" onCancelar="cancelar"></BtnSalvarCancelar>
 
 @code {
     private int currentCount = 0;
@@ -53,6 +54,7 @@
 
     protected void cancelar()
     {
+        NavigationManager.NavigateTo("/");
 
     }
 }

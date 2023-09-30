@@ -5,7 +5,7 @@
     <div class="list-group">
         @foreach (Lembrete lembrete in Lembretes)
         {
-            <LembreteDetail Lembrete="lembrete"></LembreteDetail>
+            <LembreteDetail Lembrete="lembrete" ExibeBotoesDeAcao="@ExibeBotoesDeAcao"></LembreteDetail>
         }
     </div>
 }
@@ -17,4 +17,7 @@ else
 
     [Parameter]
     public IEnumerable<Lembrete> Lembretes { get; set; }
+
+    [Parameter]
+    public bool ExibeBotoesDeAcao { get; set; } = true;
 }

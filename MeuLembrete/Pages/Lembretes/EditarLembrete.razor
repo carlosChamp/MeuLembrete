@@ -15,7 +15,7 @@
 
 <LembreteForm Lembrete="lembrete"></LembreteForm>
 
-<BtnSalvarCancelar onSalvar="salvar" ></BtnSalvarCancelar>
+<BtnSalvarCancelar onExecutarAcao="salvar" onCancelar="cancelar" ></BtnSalvarCancelar>
 
 @code {
 
@@ -29,8 +29,7 @@
 
     protected override async void OnInitialized()
     {
-        var lembretes = LembreteCached.LembretesCache;
-        this.lembrete = lembretes.First(x => x.Id == Id);
+        this.lembrete = await LembreteService.GetLembreteById(Id);
     }
 
     protected void salvar()
@@ -39,6 +38,7 @@
         {
             LembreteService.Validate(lembrete);
             LembreteService.UpdateLembrete(lembrete);
+            LembreteCached.UpdateCache();
         }
         catch(LembreteValidationException exValidation)
         {
@@ -53,7 +53,7 @@
 
     protected void cancelar()
     {
-        NavigationManager.NavigateTo("/", false);
+        NavigationManager.NavigateTo("/");
     }
 
 

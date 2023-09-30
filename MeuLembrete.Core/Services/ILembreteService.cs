@@ -14,6 +14,7 @@ namespace MeuLembrete.Core.Services
 
         public void Validate(Lembrete lembrete);
 
+        public Task Remove(IEnumerable<Lembrete> lembretes);
 
     }
 }

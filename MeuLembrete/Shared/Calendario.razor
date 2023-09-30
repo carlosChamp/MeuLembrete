@@ -55,8 +55,8 @@
 <div class="row">
     <div class="col-12">
 
-        <fieldset>
-            <legend>Lembretes na data</legend>
+        <fieldset hidden="@(DataSelecionada == null)">
+            <legend>Lembretes em @(DataSelecionada.GetValueOrDefault().ToString("dd/MM/yyyy"))</legend>
             <LembreteList Lembretes="listaLembreteNoDia"></LembreteList>
 
         </fieldset>
@@ -110,7 +110,7 @@
         get; set;
     }
 
-    public DateTime DataSelecionada { get; set; }
+    public DateTime? DataSelecionada { get; set; }
 
     protected override void OnInitialized()
     {
@@ -124,19 +124,13 @@
         StateHasChanged();
     }
 
-    void selecionaDia(int week, int diaSeamana)
-    {
-        int diaSelecionado = calcularDiaPelaPosicaoCalendario(week, diaSeamana);
-        if (diaSelecionado > listaDeDiasNaTela.Count)
-            return;
-        listaLembreteNoDia = listaDeDiasNaTela[diaSelecionado].Item2;
-    }
 
     void selecionaDia(int diaSelecionado)
     {
-        // int diaSelecionado = calcularDiaPelaPosicaoCalendario(week, diaSeamana);
         if (diaSelecionado > listaDeDiasNaTela.Count)
             return;
+
+        DataSelecionada = listaDeDiasNaTela[diaSelecionado].Item1;
         listaLembreteNoDia = listaDeDiasNaTela[diaSelecionado].Item2;
     }
 

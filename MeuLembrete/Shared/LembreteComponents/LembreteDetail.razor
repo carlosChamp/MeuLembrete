@@ -3,12 +3,12 @@
 <div class="list-group-item">
     <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">@Lembrete.Titulo <span class="badge rounded-pill marcador" style="background-color: @Lembrete.Cor">@Lembrete.Tag</span></h5>
-        <div class="btn-group">
+        <div class="btn-group" hidden="@(!ExibeBotoesDeAcao)">
             <a class="btn btn-light" href="/lembrete/editar/@Lembrete.Id">
                 <span class="oi oi-pencil me-2" aria-hidden="true"></span>
                 Alterar
             </a>
-            <a class="btn btn-light" href="/delete/@Lembrete.Id">
+            <a class="btn btn-light" href="/lembrete/delete/@Lembrete.Id">
                 <span class="oi oi-trash me-2" aria-hidden="true"></span>
                 Excluir
             </a>
@@ -27,4 +27,7 @@
 @code {
     [Parameter]
     public Lembrete Lembrete { get; set; }
+
+    [Parameter]
+    public bool ExibeBotoesDeAcao { get; set; } = true;
 }

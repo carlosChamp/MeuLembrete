@@ -1,0 +1,48 @@
+﻿@page "/lembrete/delete/{Id:guid}"
+@using MeuLembrete.Core.Model;
+@using MeuLembrete.Core.Services;
+@using MeuLembrete.Shared.LembreteComponents;
+
+@inject ILembreteService LembreteService;
+@inject LembreteCachedRepository LembreteCached;
+<div class="row">
+    <div class="col-12">
+        <h3>Tem certeza que deseja remover o lembrete abaixo?</h3>
+
+        <LembreteList ExibeBotoesDeAcao=false Lembretes="Lembretes"></LembreteList>
+
+        <BtnSalvarCancelar LabelAcao="Excluir" onExecutarAcao="excluir"></BtnSalvarCancelar>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private IEnumerable<Lembrete> Lembretes { get; set; }
+
+
+    protected override async void OnInitialized()
+    {
+        base.OnInitialized();
+
+        var LembretesAExcluir = new List<Lembrete>();
+        LembretesAExcluir.Add(await LembreteService.GetLembreteById(Id));
+        this.Lembretes = LembretesAExcluir;
+    }
+
+    protected void excluir()
+    {
+        try
+        {
+            LembreteService.Remove(Lembretes);
+            LembreteCached.UpdateCache();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+}

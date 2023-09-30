@@ -110,6 +110,9 @@ namespace MeuLembrete.Core.Services.Handlers
         {
             int posicaoLembrete = lembreteList.FindIndex(l => l.Id == lembrete.Id);
 
+            if (posicaoLembrete < 0)
+                throw new ArgumentException("Não foi possível encontrar o lembrete.");
+
             lembreteList[posicaoLembrete] = lembrete;
 
             return Task.CompletedTask;
@@ -125,6 +128,18 @@ namespace MeuLembrete.Core.Services.Handlers
 
             if (lembrete.Alertas?.Count == 0)
                 throw new LembreteValidationException("Adicione pelo menos 1 alerta");
+        }
+
+        public Task Remove(IEnumerable<Lembrete> lembretes)
+        {
+            if (lembretes == null) throw new ArgumentNullException("A lista não deve ser nula");
+
+            foreach (var lembrete in lembretes)
+            {
+                lembreteList.Remove(lembrete);
+            }
+
+            return Task.CompletedTask;
         }
     }
 }
